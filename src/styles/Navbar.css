@@ -1,0 +1,22 @@
+.app-logo {
+    height: 100px;
+    width: 100px;
+}
+
+.app-logo:hover {
+    cursor: pointer;
+}
+
+.nav {
+    background: radial-gradient(circle,rgb(255,255,255),rgb(247, 248, 250));
+    align-items: center;
+    margin: 0 auto;
+}
+
+.links {
+    text-align: center;
+}
+
+#link {
+    display: table-cell;
+}
