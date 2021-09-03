@@ -1,0 +1,20 @@
+.options {
+    background: radial-gradient(circle,rgb(85, 74, 240),rgb(61, 49, 235));
+    color: white;
+    font-size: 10px;
+    overflow: hidden;
+    padding: 10px;
+    transition: all .5s ease-in-out;
+    display: flex;
+    justify-content: center;
+}
+
+.column {
+    width: 3000px;
+    border: solid white 2px;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 5px;
+}
+
+

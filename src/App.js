@@ -5,6 +5,7 @@ import PathFinding from "./pages/PathFinding";
 import NetworkFlow from "./pages/NetworkFlow";
 import About from "./pages/About";
 import Home from "./pages/Home";
+import TravelingSalesmanProblem from "./pages/TravelingSalesmanProblem";
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
             </Route>
             <Route path={"/network-flow"}>
               <NetworkFlow/>
+            </Route>
+            <Route path={"/traveling-salesman-problem"}>
+              <TravelingSalesmanProblem/>
             </Route>
             <Route path={"/about"}>
               <About/>

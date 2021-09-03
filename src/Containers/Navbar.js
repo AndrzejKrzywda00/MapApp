@@ -7,18 +7,17 @@ class Navbar extends Component {
 
     render() {
         return (
-            <div className={"nav"}>
-                <nav>
-                    <img src={appLogo} alt={appLogo} className={"app-logo"}/>
-                    <h1>Map App</h1>
-                    <div className={"links"}>
-                        <Link to={"/"}>Home</Link>
-                        <Link to={"/path-finding"}>Pathfinding</Link>
-                        <Link to={"/network-flow"}>Network flow</Link>
-                        <Link to={"/about"}>About</Link>
-                    </div>
-                </nav>
-            </div>
+            <nav className={"nav"}>
+                <img src={appLogo} alt={appLogo} className={"app-logo"}/>
+                <h1 className={"app-name"}>Map App</h1>
+                <div className={"links"}>
+                    <Link className={"link-item"} to={"/"}>Home</Link>
+                    <Link className={"link-item"} to={"/path-finding"}>Pathfinding</Link>
+                    <Link className={"link-item"} to={"/network-flow"}>Network flow</Link>
+                    <Link className={"link-item"} to={"/traveling-salesman-problem"}>TSP</Link>
+                    <Link className={"link-item"} to={"/about"}>About</Link>
+                </div>
+            </nav>
         );
     }
 }
