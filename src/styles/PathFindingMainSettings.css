@@ -1,0 +1,17 @@
+.form-group {
+    font-size: 15px;
+}
+
+select {
+    padding: 2px 2px;
+    border-radius: 8px;
+    margin-top: 5px;
+}
+
+label {
+    margin-right: 10px;
+}
+
+option {
+    border-radius: 8px;
+}

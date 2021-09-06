@@ -1,0 +1,20 @@
+#tool-button {
+    background: white;
+    font-size: 20px;
+    border: none;
+    font-family: Roboto, cursive;
+    padding: 10px;
+}
+
+#tool-button:hover {
+    background: rgb(61, 49, 235);
+    cursor: pointer;
+    color: white;
+}
+
+#img-tool {
+    height: 20px;
+    width: 20px;
+    margin-top: 5px;
+    margin-right: 6px;
+}

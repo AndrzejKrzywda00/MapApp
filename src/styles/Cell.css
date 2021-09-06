@@ -1,0 +1,11 @@
+.single-cell {
+    height: 20px;
+    width: 20px;
+    border: solid rgb(181,181,181) 1px;
+    border-radius: 2px;
+}
+
+.single-cell:hover {
+    background: #e1e8f2;
+    cursor: pointer;
+}
