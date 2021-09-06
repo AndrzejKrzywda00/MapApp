@@ -9,7 +9,7 @@ class ReadMore extends Component {
             </div>
         );
     }
-    
+
 }
 
 export default ReadMore;
