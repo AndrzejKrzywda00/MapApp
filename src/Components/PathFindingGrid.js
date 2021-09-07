@@ -14,16 +14,18 @@ class PathFindingGrid extends Component {
             size_y: 70,
             gridLoaded: false,
             grid: [],
-            testStart: {i:1,j:1,g:0,h:0,metric:Infinity},
-            testEnd: {i:30,j:70}
+            testStart: {i:15,j:15,g:0,h:0,metric:Infinity},
+            testEnd: {i:21,j:70}
         }
 
         this.handleClick = this.handleClick.bind(this);
 
     }
 
-    handleClick() {
-
+    handleClick(position) {
+        let currentI = position[0];
+        let currentJ = position[1];
+        this.state.grid[currentI-1][currentJ-1].color = "wall";
     }
 
     componentDidMount() {
@@ -65,7 +67,6 @@ class PathFindingGrid extends Component {
 
         if(gridLoaded) {
             let visited = astar(grid,testStart,testEnd);
-            console.log(visited.data);
             this.colorTheGrid(visited.data[0],visited);
         }
 

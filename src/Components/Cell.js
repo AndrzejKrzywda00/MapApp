@@ -2,8 +2,9 @@ import "../styles/Cell.css";
 
 export const Cell =({data,handleClick,start,end})=> {
 
-    const FORMATS = ["single-cell","single-cell-target","single-cell-path"];
-    let cellType = null;
+    const position = [data.i, data.j];
+    const FORMATS = ["single-cell","single-cell-target","single-cell-path","single-cell-wall"];
+    let cellType;
 
     if((data.i === start.i && data.j === start.j) || (data.i === end.i && data.j === end.j)) {
         cellType = FORMATS[1];
@@ -15,9 +16,12 @@ export const Cell =({data,handleClick,start,end})=> {
     if(data.color === "path") {
         cellType = FORMATS[2];
     }
+    if(data.color === "wall") {
+        cellType = FORMATS[3];
+    }
 
     return (
-        <div className={cellType} onClick={handleClick}>
+        <div className={cellType} onClick={()=>handleClick(position)}>
         </div>
     );
 }
