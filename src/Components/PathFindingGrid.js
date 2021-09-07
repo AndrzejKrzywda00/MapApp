@@ -9,17 +9,13 @@ class PathFindingGrid extends Component {
     constructor(props) {
         super(props);
 
-        // size_x: 30
-        // size_y: 70
-        // cell size: 20px x 20px
-
         this.state = {
             size_x: 30,
             size_y: 70,
             gridLoaded: false,
             grid: [],
-            testStart: {i:7,j:1,g:0,h:0,metric:Infinity},
-            testEnd: {i:7,j:70}
+            testStart: {i:1,j:1,g:0,h:0,metric:Infinity},
+            testEnd: {i:30,j:70}
         }
 
         this.handleClick = this.handleClick.bind(this);
@@ -52,7 +48,7 @@ class PathFindingGrid extends Component {
         if(node.iP !== undefined && node.jP !== undefined) {
             let currentI = node.i;
             let currentJ = node.j;
-            this.state.grid[currentI][currentJ].color = "path";
+            this.state.grid[currentI-1][currentJ-1].color = "path";
             let parentI = node.iP;
             let parentJ = node.jP;
             this.colorTheGrid(visited.getElementAtPosition(parentI,parentJ),visited);
@@ -69,7 +65,7 @@ class PathFindingGrid extends Component {
 
         if(gridLoaded) {
             let visited = astar(grid,testStart,testEnd);
-            console.log(visited.data[0]);
+            console.log(visited.data);
             this.colorTheGrid(visited.data[0],visited);
         }
 

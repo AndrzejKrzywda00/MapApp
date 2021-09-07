@@ -12,7 +12,7 @@
 }
 
 .single-cell-target:hover {
-    background: black;
+    background: darkblue;
 }
 
 
@@ -25,4 +25,8 @@
     width: 20px;
     border: solid black 1px;
     background: red;
+}
+
+.single-cell-path:hover {
+    background: darkred;
 }

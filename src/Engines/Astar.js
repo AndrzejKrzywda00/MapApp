@@ -52,7 +52,6 @@ function astar(grid,start,end) {
                 }
             }
         }
-
         closedList.pushElement(cell);
 
         if(openList.contains(end)) {
