@@ -1,7 +1,7 @@
 import Cell from "./Cell";
 import "../styles/Gridline.css";
 
-export const Gridline =({cells, handleClick, start, end, visited})=> {
+export const Gridline =({cells, handleClick, start, end})=> {
 
     return (
         <div className={"gridline"}>
@@ -11,7 +11,6 @@ export const Gridline =({cells, handleClick, start, end, visited})=> {
                     handleClick={handleClick}
                     start={start}
                     end={end}
-                    visited={visited}
                 />
             ))}
         </div>

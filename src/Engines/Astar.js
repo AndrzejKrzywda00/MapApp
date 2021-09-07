@@ -40,39 +40,35 @@ function astar(grid,start,end) {
 
         for (const neighbor of neighbors) {
 
-            if(neighbor.i === end.i && neighbor.j === end.j) {
-                return closedList;
-            }
+            if(isNeighborExisting(neighbor,rows,columns)) {
+                if(isNeighborNotWall(grid,neighbor)) {
+                    neighbor.g = cell.g + 1;
+                    neighbor.h = manhattanHeuristic(neighbor,end);
+                    neighbor.metric = neighbor.g + neighbor.h;
 
-            if(isNeighborNotWall(grid,neighbor) && isNeighborExisting(neighbor,rows,columns)) {
-                neighbor.g = cell.g + 1;
-                neighbor.h = manhattanHeuristic(neighbor,end);
-                neighbor.metric = neighbor.g + neighbor.h;
-
-                if(!closedList.contains(neighbor)) {
-                    openList.pushElement(neighbor);
+                    if(!closedList.contains(neighbor)) {
+                        openList.pushElement(neighbor);
+                    }
                 }
             }
         }
 
-        if(openList.isTopElement(end)) {
-            return true;
-        }
         closedList.pushElement(cell);
+
+        if(openList.contains(end)) {
+            return closedList;
+        }
+
     }
     return false;
 }
 
 function isNeighborExisting(cell,rows,columns) {
-
     return (cell.i <= rows && cell.i > 0) && (cell.j <= columns && cell.j > 0);
-
 }
 
 function isNeighborNotWall(grid,cell) {
-
-    return grid[parseInt(cell.i)][parseInt(cell.j)].content !== 1;
-
+    return grid[parseInt(cell.i)-1][parseInt(cell.j)-1].content !== 1;
 }
 
 function euclideanHeuristic(cell,end) {

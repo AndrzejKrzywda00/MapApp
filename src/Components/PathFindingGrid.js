@@ -18,8 +18,8 @@ class PathFindingGrid extends Component {
             size_y: 70,
             gridLoaded: false,
             grid: [],
-            testStart: {i:19,j:3,g:0},
-            testEnd: {i:7,j:23}
+            testStart: {i:7,j:1,g:0,h:0,metric:Infinity},
+            testEnd: {i:7,j:70}
         }
 
         this.handleClick = this.handleClick.bind(this);
@@ -36,7 +36,7 @@ class PathFindingGrid extends Component {
         let line = [];
         for(let i=1; i<=this.state.size_x; i++) {
             for (let j=1; j<=this.state.size_y; j++) {
-                let item = {i: i, j: j, content: 0};
+                let item = {i: i, j: j, content: 0, color: "white"};
                 line.push(item);
             }
             mainGrid.push(line);
@@ -47,16 +47,31 @@ class PathFindingGrid extends Component {
 
     }
 
+    colorTheGrid(node,visited) {
+
+        if(node.iP !== undefined && node.jP !== undefined) {
+            let currentI = node.i;
+            let currentJ = node.j;
+            this.state.grid[currentI][currentJ].color = "path";
+            let parentI = node.iP;
+            let parentJ = node.jP;
+            this.colorTheGrid(visited.getElementAtPosition(parentI,parentJ),visited);
+        }
+        else {
+            return true;
+        }
+
+    }
+
     render() {
 
         const {gridLoaded, grid, testStart, testEnd} = this.state;
 
-        let visited = null;
-
         if(gridLoaded) {
-            visited = astar(grid,testStart,testEnd);
+            let visited = astar(grid,testStart,testEnd);
+            console.log(visited.data[0]);
+            this.colorTheGrid(visited.data[0],visited);
         }
-
 
         return (
             gridLoaded ?
@@ -67,7 +82,6 @@ class PathFindingGrid extends Component {
                         handleClick={this.handleClick}
                         start={testStart}
                         end={testEnd}
-                        visited={visited}
                     />
                 ))}
             </div>

@@ -65,6 +65,15 @@ class PriorityQueue {
         return false;
     }
 
+    getElementAtPosition(i,j) {
+        for(const node of this.data) {
+            if(node.i === i && node.j === j) {
+                return node;
+            }
+        }
+        return false;
+    }
+
 }
 
 export default PriorityQueue;
