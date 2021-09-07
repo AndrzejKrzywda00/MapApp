@@ -1,8 +1,7 @@
 .single-cell {
     height: 20px;
     width: 20px;
-    border: solid rgb(181,181,181) 1px;
-    border-radius: 2px;
+    border: solid black 1px;
 }
 
 .single-cell:hover {
