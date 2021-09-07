@@ -30,7 +30,7 @@ class PriorityQueue {
     }
 
     isTopElement(cell) {
-        return cell.i === this.data[0].i && cell.j === this.data[0].j;
+        return (cell.i === this.data[0].i && cell.j === this.data[0].j);
     }
 
     isNotEmpty() {
@@ -56,6 +56,8 @@ class PriorityQueue {
                 if(cell.metric < node.metric) {
                     node.metric = cell.metric;
                     node.g = cell.g;
+                    node.iP = cell.iP;
+                    node.jP = cell.jP;
                     return true;
                 }
             }
@@ -64,3 +66,5 @@ class PriorityQueue {
     }
 
 }
+
+export default PriorityQueue;

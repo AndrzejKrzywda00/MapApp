@@ -1,11 +1,19 @@
 import "../styles/Cell.css";
 
-export const Cell =({data,handleClick})=> {
+export const Cell =({data,handleClick,start,end,visited})=> {
 
-    const position = data.i.toString() + "," + data.j.toString();
+    const FORMATS = ["single-cell","single-cell-target"];
+    let cellType = null;
+
+    if((data.i === start.i && data.j === start.j) || (data.i === end.i && data.j === end.j)) {
+        cellType = FORMATS[1];
+    }
+    else {
+        cellType = FORMATS[0];
+    }
 
     return (
-        <div className={"single-cell"} onClick={handleClick}>
+        <div className={cellType} onClick={handleClick}>
         </div>
     );
 }
