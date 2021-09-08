@@ -1,7 +1,7 @@
 import Cell from "./Cell";
 import "../styles/Gridline.css";
 
-export const Gridline =({cells, handleClick, start, end})=> {
+export const Gridline =({cells, handleClick, start, end, allowDrop})=> {
 
     return (
         <div className={"gridline"}>

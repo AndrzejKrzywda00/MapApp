@@ -1,6 +1,6 @@
 import "../styles/Cell.css";
 
-export const Cell =({data,handleClick,start,end})=> {
+export const Cell =({data,handleClick,start,end,allowDrop})=> {
 
     const position = [data.i, data.j];
     const FORMATS = ["single-cell","single-cell-target","single-cell-path","single-cell-wall","single-cell-visited"];

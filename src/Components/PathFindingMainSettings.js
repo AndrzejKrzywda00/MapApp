@@ -4,6 +4,17 @@ import "../styles/PathFindingMainSettings.css";
 
 class PathFindingMainSettings extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            columns: 70,
+            rows: 30,
+            algorithmId: 0
+        }
+
+    }
+
     render() {
         return (
             <div>
@@ -15,6 +26,7 @@ class PathFindingMainSettings extends Component {
                             <option className={"option"}>A*</option>
                             <option className={"option"}>Dijkstra</option>
                             <option className={"option"}>Deep First Search</option>
+                            <option className={"option"}>alpha-beta</option>
                         </select>
                     </FormGroup>
                     <FormGroup>

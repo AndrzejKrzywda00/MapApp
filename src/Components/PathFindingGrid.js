@@ -100,6 +100,9 @@ class PathFindingGrid extends Component {
                 grid[currentI-1][currentJ-1].color = "visited";
             }
         }
+    }
+
+    colorTheSearchingArea() {
 
     }
 
@@ -128,8 +131,10 @@ class PathFindingGrid extends Component {
                 this.unColorTheGrid(grid);
             }
             let path = astar(grid,testStart,testEnd);
-            this.colorTheSearchedArea(grid,path,grid);
-            this.colorTheGrid(path.getClosestElement(),path,grid);
+            if(path !== false) {
+                this.colorTheSearchedArea(grid,path,grid);
+                this.colorTheGrid(path.getClosestElement(),path,grid);
+            }
         }
 
         return (
