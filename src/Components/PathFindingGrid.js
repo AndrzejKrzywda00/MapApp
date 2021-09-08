@@ -26,9 +26,11 @@ class PathFindingGrid extends Component {
     handleClick(position) {
         let currentI = position[0];
         let currentJ = position[1];
-        let newStart = {i:currentI, j:currentJ, g:0, h:Infinity, metric: Infinity};
-        this.setState({testStart: newStart});
-        this.setState({newStart: true});
+        if(this.state.grid[currentI-1][currentJ-1].content !== 1) {
+            let newStart = {i:currentI, j:currentJ, g:0, h:Infinity, metric: Infinity};
+            this.setState({testStart: newStart});
+            this.setState({newStart: true});
+        }
     }
 
     async componentDidMount() {
