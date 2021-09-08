@@ -6,10 +6,17 @@
     padding: 10px;
 }
 
-#tool-button:hover {
+#tool-button-clicked {
+    font-size: 20px;
+    border: none;
+    font-family: Roboto, cursive;
+    padding: 10px;
     background: rgb(61, 49, 235);
-    cursor: pointer;
     color: white;
+}
+
+#tool-button:hover {
+    cursor: pointer;
 }
 
 #img-tool {
