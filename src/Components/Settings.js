@@ -15,9 +15,12 @@ class Settings extends Component {
             target: true
         }
         this.handleTool = this.handleTool.bind(this);
+        localStorage.setItem("tool","target");
     }
 
     handleTool(tool) {
+
+        localStorage.setItem("tool",tool);
 
         switch(tool) {
 

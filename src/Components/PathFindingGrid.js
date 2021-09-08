@@ -16,7 +16,8 @@ class PathFindingGrid extends Component {
             grid: [],
             newStart: false,
             testStart: {i:15,j:15,g:0,h:Infinity,metric:Infinity},
-            testEnd: {i:21,j:32}
+            testEnd: {i:21,j:32},
+            updateTrigger: false
         }
 
         this.handleClick = this.handleClick.bind(this);
@@ -24,13 +25,32 @@ class PathFindingGrid extends Component {
     }
 
     handleClick(position) {
+
         let currentI = position[0];
         let currentJ = position[1];
-        if(this.state.grid[currentI-1][currentJ-1].content !== 1) {
-            let newStart = {i:currentI, j:currentJ, g:0, h:Infinity, metric: Infinity};
-            this.setState({testStart: newStart});
-            this.setState({newStart: true});
+
+        let tool = localStorage.getItem("tool");
+
+        if(tool === "target") {
+            if(this.state.grid[currentI-1][currentJ-1].content !== 1) {
+                let newStart = {i:currentI, j:currentJ, g:0, h:Infinity, metric: Infinity};
+                this.setState({testStart: newStart});
+                this.setState({newStart: true});
+            }
         }
+
+        if(tool === "erase") {
+            this.state.grid[currentI-1][currentJ-1].content = 0;
+            this.state.grid[currentI-1][currentJ-1].color = null;
+            this.setState({updateTrigger: true});
+        }
+
+        if(tool === "wall") {
+            this.state.grid[currentI-1][currentJ-1].content = 1;
+            this.state.grid[currentI-1][currentJ-1].color = "wall";
+            this.setState({updateTrigger: true});
+        }
+
     }
 
     async componentDidMount() {
