@@ -3,7 +3,14 @@ import "../styles/Cell.css";
 export const Cell =({data,handleClick,start,end,allowDrop})=> {
 
     const position = [data.i, data.j];
-    const FORMATS = ["single-cell","single-cell-target","single-cell-path","single-cell-wall","single-cell-visited"];
+    const FORMATS = [
+        "single-cell",
+        "single-cell-target",
+        "single-cell-path",
+        "single-cell-wall",
+        "single-cell-visited",
+        "single-cell-searched"
+    ];
     let cellType;
 
     if((data.i === start.i && data.j === start.j) || (data.i === end.i && data.j === end.j)) {
@@ -21,6 +28,9 @@ export const Cell =({data,handleClick,start,end,allowDrop})=> {
     }
     if(data.color === "visited") {
         cellType = FORMATS[4];
+    }
+    if(data.color === "searched") {
+        cellType = FORMATS[5];
     }
 
     return (

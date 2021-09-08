@@ -56,7 +56,7 @@ function astar(grid,start,end) {
         }
 
         if(openList.contains(end)) {
-            return closedList;
+            return [closedList,openList];
         }
 
     }

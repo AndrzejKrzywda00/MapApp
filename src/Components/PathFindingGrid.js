@@ -17,11 +17,12 @@ class PathFindingGrid extends Component {
             newStart: false,
             testStart: {i:15,j:15,g:0,h:Infinity,metric:Infinity},
             testEnd: {i:21,j:32},
-            updateTrigger: false
+            updateTrigger: false,
+            time: 0
         }
 
         this.handleClick = this.handleClick.bind(this);
-
+        // TODO -- add searched nodes from openList, add dragging and painting
     }
 
     handleClick(position) {
@@ -102,8 +103,22 @@ class PathFindingGrid extends Component {
         }
     }
 
-    colorTheSearchingArea() {
+    colorLeftOutArea(leftOut) {
 
+        const {testStart, testEnd} = this.state;
+
+        for(const cell of leftOut.data) {
+            if ((cell.i !== testStart.i || cell.j !== testStart.j) && (cell.i !== testEnd.i || cell.j !== testEnd.j)) {
+                let currentI = cell.i;
+                let currentJ = cell.j;
+                this.state.grid[currentI - 1][currentJ - 1].color = "searched";
+            }
+        }
+
+    }
+
+    updateData(time) {
+        this.setState({time: time});
     }
 
     unColorTheGrid(grid) {
@@ -130,9 +145,14 @@ class PathFindingGrid extends Component {
             if(newStart) {
                 this.unColorTheGrid(grid);
             }
-            let path = astar(grid,testStart,testEnd);
-            if(path !== false) {
+            let t0 = performance.now();
+            let output = astar(grid,testStart,testEnd);
+            let t1 = performance.now();
+            if(output !== false) {
+                let path = output[0];
+                let leftOut = output[1];
                 this.colorTheSearchedArea(grid,path,grid);
+                this.colorLeftOutArea(leftOut);
                 this.colorTheGrid(path.getClosestElement(),path,grid);
             }
         }
