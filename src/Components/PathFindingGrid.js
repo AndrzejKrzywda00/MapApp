@@ -14,8 +14,9 @@ class PathFindingGrid extends Component {
             size_y: 70,
             gridLoaded: false,
             grid: [],
-            testStart: {i:15,j:15,g:0,h:0,metric:Infinity},
-            testEnd: {i:21,j:70}
+            newStart: false,
+            testStart: {i:15,j:15,g:0,h:Infinity,metric:Infinity},
+            testEnd: {i:21,j:32}
         }
 
         this.handleClick = this.handleClick.bind(this);
@@ -25,27 +26,34 @@ class PathFindingGrid extends Component {
     handleClick(position) {
         let currentI = position[0];
         let currentJ = position[1];
-        this.state.grid[currentI-1][currentJ-1].color = "wall";
+        let newStart = {i:currentI, j:currentJ, g:0, h:Infinity, metric: Infinity};
+        this.setState({testStart: newStart});
+        this.setState({newStart: true});
     }
 
-    componentDidMount() {
+    async componentDidMount() {
 
         let mainGrid = [];
         let line = [];
         for(let i=1; i<=this.state.size_x; i++) {
             for (let j=1; j<=this.state.size_y; j++) {
-                let item = {i: i, j: j, content: 0, color: "white"};
-                line.push(item);
+                if(i == 5 && j>10 && j<50) {
+                    let item = {i:i,j:j,content:1,color:"wall"};
+                    line.push(item);
+                }
+                else {
+                    let item = {i: i, j: j, content: 0, color: "white"};
+                    line.push(item);
+                }
             }
             mainGrid.push(line);
             line = [];
         }
         this.setState({grid: mainGrid});
         this.setState({gridLoaded: true});
-
     }
 
-    colorTheGrid(node,visited) {
+    colorTheGrid(node,visited,grid) {
 
         if(node.iP !== undefined && node.jP !== undefined) {
             let currentI = node.i;
@@ -61,13 +69,45 @@ class PathFindingGrid extends Component {
 
     }
 
+    colorTheSearchedArea(grid,visited) {
+
+        for(const cell of visited.data) {
+            let currentI = cell.i;
+            let currentJ = cell.j;
+            if(currentI !== this.state.testStart.i || currentJ !== this.state.testStart.j) {
+                grid[currentI-1][currentJ-1].color = "visited";
+            }
+        }
+
+    }
+
+    unColorTheGrid(grid) {
+
+        const {testStart, testEnd} = this.state;
+
+        for(const line of grid) {
+            for(const cell of line) {
+                if((cell.i !== testStart.i || cell.j !== testStart.j) || (cell.i !== testEnd.i || cell.j !== testEnd.j)) {
+                    if(cell.color !== "wall") {
+                        cell.color = null;
+                    }
+                }
+            }
+        }
+
+    }
+
     render() {
 
-        const {gridLoaded, grid, testStart, testEnd} = this.state;
+        const {gridLoaded, grid, testStart, testEnd, newStart} = this.state;
 
         if(gridLoaded) {
-            let visited = astar(grid,testStart,testEnd);
-            this.colorTheGrid(visited.data[0],visited);
+            if(newStart) {
+                this.unColorTheGrid(grid);
+            }
+            let path = astar(grid,testStart,testEnd);
+            this.colorTheSearchedArea(grid,path,grid);
+            this.colorTheGrid(path.getClosestElement(),path,grid);
         }
 
         return (

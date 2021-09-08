@@ -2,19 +2,16 @@
     height: 20px;
     width: 20px;
     border: solid black 1px;
+    border-radius: 8px;
 }
 
 .single-cell-target {
     height: 20px;
     width: 20px;
     border: solid black 1px;
-    background: #49a2d1;
-}
-
-.single-cell-target:hover {
     background: darkblue;
+    border-radius: 8px;
 }
-
 
 .single-cell:hover {
     background: #dbdbdb;
@@ -24,11 +21,12 @@
     height: 20px;
     width: 20px;
     border: solid black 1px;
-    background: red;
+    background: radial-gradient(circle,rgb(19, 191, 42),rgb(19, 105, 191));
+    border-radius: 8px;
 }
 
 .single-cell-path:hover {
-    background: darkred;
+    background: seagreen;
 }
 
 .single-cell-wall {
@@ -36,4 +34,14 @@
     width: 20px;
     border: solid black 1px;
     background: black;
+    border-radius: 8px;
 }
+
+.single-cell-visited {
+    height: 20px;
+    width: 20px;
+    border: solid black 1px;
+    border-radius: 8px;
+    background: yellow;
+}
+

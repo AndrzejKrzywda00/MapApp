@@ -28,6 +28,8 @@ function astar(grid,start,end) {
         let cell = openList.getBestCell();
         openList.popElement();
 
+        closedList.pushElement(cell);
+
         let currentI = cell.i;
         let currentJ = cell.j;
 
@@ -52,7 +54,6 @@ function astar(grid,start,end) {
                 }
             }
         }
-        closedList.pushElement(cell);
 
         if(openList.contains(end)) {
             return closedList;

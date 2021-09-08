@@ -58,8 +58,8 @@ class PriorityQueue {
                     node.g = cell.g;
                     node.iP = cell.iP;
                     node.jP = cell.jP;
-                    return true;
                 }
+                return true;
             }
         }
         return false;
@@ -72,6 +72,20 @@ class PriorityQueue {
             }
         }
         return false;
+    }
+
+    getClosestElement() {
+
+        let smallestMetric = Infinity;
+        let result = this.data[0];
+
+        for(const node of this.data) {
+            if(node.h < smallestMetric) {
+                smallestMetric = node.h;
+                result = node;
+            }
+        }
+        return result;
     }
 
 }
