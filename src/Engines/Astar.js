@@ -1,4 +1,7 @@
 import PriorityQueue from "./PriorityQueue";
+import isNeighborNotWall from "./UtilFunctions/isNeighborNotWall";
+import isNeighborExisting from "./UtilFunctions/isNeighborExisting";
+import manhattanHeuristic from "./UtilFunctions/manhattanHeuristic";
 
 /***
  *
@@ -61,22 +64,6 @@ function astar(grid,start,end) {
 
     }
     return false;
-}
-
-function isNeighborExisting(cell,rows,columns) {
-    return (cell.i <= rows && cell.i > 0) && (cell.j <= columns && cell.j > 0);
-}
-
-function isNeighborNotWall(grid,cell) {
-    return grid[parseInt(cell.i)-1][parseInt(cell.j)-1].content !== 1;
-}
-
-function euclideanHeuristic(cell,end) {
-    return Math.sqrt((cell.i-end.i)*(cell.i-end.i) + (cell.j-end.j)*(cell.j-end.j));
-}
-
-function manhattanHeuristic(cell,end) {
-    return Math.abs(cell.i-end.i) + Math.abs(cell.j-end.j);
 }
 
 export default astar;
