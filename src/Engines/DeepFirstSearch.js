@@ -1,4 +1,5 @@
-import astar from "./Astar";
+import isNeighborNotWall from "./UtilFunctions/isNeighborNotWall";
+import isNeighborExisting from "./UtilFunctions/isNeighborExisting";
 
 function DeepFirstSearch(grid,start,end,cell,visitedGrid) {
 
@@ -36,14 +37,6 @@ function DeepFirstSearch(grid,start,end,cell,visitedGrid) {
         return visitedGrid;
     }
 
-}
-
-function isNeighborExisting(cell,rows,columns) {
-    return (cell.i <= rows && cell.i > 0) && (cell.j <= columns && cell.j > 0);
-}
-
-function isNeighborNotWall(grid,cell) {
-    return grid[parseInt(cell.i)-1][parseInt(cell.j)-1].content !== 1;
 }
 
 export default DeepFirstSearch;
