@@ -7,6 +7,11 @@ class PathFinding extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            childData: {}
+        }
+
     }
 
     render() {

@@ -1,5 +1,4 @@
 import {Component} from "react";
-import {Cell} from "./Cell";
 import "../styles/PathFindingGrid.css";
 import {Gridline} from "./Gridline";
 import astar from "../Engines/Astar";
@@ -22,7 +21,7 @@ class PathFindingGrid extends Component {
         }
 
         this.handleClick = this.handleClick.bind(this);
-        // TODO -- add searched nodes from openList, add dragging and painting
+        // TODO -- add dragging and painting, clean the code!!!
     }
 
     handleClick(position) {
@@ -60,7 +59,7 @@ class PathFindingGrid extends Component {
         let line = [];
         for(let i=1; i<=this.state.size_x; i++) {
             for (let j=1; j<=this.state.size_y; j++) {
-                if(i == 5 && j>10 && j<50) {
+                if(i === 5 && j>10 && j<50) {
                     let item = {i:i,j:j,content:1,color:"wall"};
                     line.push(item);
                 }
@@ -118,7 +117,7 @@ class PathFindingGrid extends Component {
     }
 
     updateData(time) {
-        this.setState({time: time});
+        
     }
 
     unColorTheGrid(grid) {
@@ -149,6 +148,7 @@ class PathFindingGrid extends Component {
             let output = astar(grid,testStart,testEnd);
             let t1 = performance.now();
             if(output !== false) {
+                this.updateData(t1-t0);
                 let path = output[0];
                 let leftOut = output[1];
                 this.colorTheSearchedArea(grid,path,grid);
