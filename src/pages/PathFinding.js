@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Settings from "../Components/Settings";
 import PathFindingGrid from "../Components/PathFindingGrid";
 import ReadMore from "../Components/ReadMore";
+import ContextProvider from "../Meta/MContext";
 
 class PathFinding extends Component {
 
@@ -17,9 +18,13 @@ class PathFinding extends Component {
     render() {
         return (
             <div>
-                <Settings/>
-                <PathFindingGrid/>
-                <ReadMore/>
+                <ContextProvider>
+                    <div>
+                        <Settings/>
+                        <PathFindingGrid/>
+                        <ReadMore/>
+                    </div>
+                </ContextProvider>
             </div>
         );
     }

@@ -75,7 +75,7 @@ class PathFindingGrid extends Component {
         this.setState({gridLoaded: true});
     }
 
-    colorTheGrid(node,visited,grid) {
+    colorTheGrid(node,visited,grid,pathLength) {
 
         if(node.iP !== undefined && node.jP !== undefined) {
             let currentI = node.i;
@@ -83,10 +83,10 @@ class PathFindingGrid extends Component {
             this.state.grid[currentI-1][currentJ-1].color = "path";
             let parentI = node.iP;
             let parentJ = node.jP;
-            this.colorTheGrid(visited.getElementAtPosition(parentI,parentJ),visited);
+            this.colorTheGrid(visited.getElementAtPosition(parentI,parentJ),visited,pathLength+1);
         }
         else {
-            return true;
+            return pathLength;
         }
 
     }
@@ -116,8 +116,11 @@ class PathFindingGrid extends Component {
 
     }
 
-    updateData(time) {
-        
+    updateData(data) {
+        // what data to send to DataOutput Component ?
+        // path concluded
+        // length of the path
+        // time
     }
 
     unColorTheGrid(grid) {
@@ -141,20 +144,24 @@ class PathFindingGrid extends Component {
         const {gridLoaded, grid, testStart, testEnd, newStart} = this.state;
 
         if(gridLoaded) {
-            if(newStart) {
+            if (newStart) {
                 this.unColorTheGrid(grid);
             }
             let t0 = performance.now();
-            let output = astar(grid,testStart,testEnd);
+            let output = astar(grid, testStart, testEnd);
             let t1 = performance.now();
-            if(output !== false) {
-                this.updateData(t1-t0);
+            let time = t1 - t0;
+            let pathLength;
+            let pathConcluded = false;
+            if (output !== false) {
                 let path = output[0];
                 let leftOut = output[1];
-                this.colorTheSearchedArea(grid,path,grid);
+                this.colorTheSearchedArea(grid, path, grid);
                 this.colorLeftOutArea(leftOut);
-                this.colorTheGrid(path.getClosestElement(),path,grid);
+                let pathLength = this.colorTheGrid(path.getClosestElement(), path, grid, 0);
+                let pathConcluded = true;
             }
+            let response = {time: time, pathLength: pathLength, pathConcluded: pathConcluded};
         }
 
         return (
