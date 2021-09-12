@@ -9,17 +9,20 @@ class PathFindingGrid extends Component {
         super(props);
 
         this.state = {
-            size_x: 30,
-            size_y: 70,
+            rows: 30,
+            columns: 70,
             gridLoaded: false,
             grid: [],
-            newStart: false,
-            start: {i:15,j:15,g:0,h:Infinity,metric:Infinity},
+            start: {i:15, j:15, g:0, h:Infinity, metric:Infinity, iP:undefined, jP:undefined},
             end: {i:21,j:32},
-            time: 0
+            path: [],
+            visited: [],
+            searched: []
         }
 
         this.handleClick = this.handleClick.bind(this);
+        this.setTool = this.setTool.bind(this);
+        this.generateStartingGrid = this.generateStartingGrid.bind(this);
         // TODO -- add dragging and painting, clean the code!!!
     }
 
@@ -29,18 +32,33 @@ class PathFindingGrid extends Component {
         let currentJ = position[1];
 
         let tool = localStorage.getItem("tool");
-        setTool(tool,currentI,currentJ);
+        let toolChosen = this.setTool(tool,currentI,currentJ);
+
+        if(toolChosen === true) {
+
+            let t0 = performance.now();
+            let [visited, searched] = astar(this.state.grid,this.state.start,this.state.end);
+            let t1 = performance.now();
+
+            let path = this.getPath(visited.getClosestElement(),visited,[]);
+
+            this.setState({visited: visited});
+            this.setState({searched: searched});
+            this.setState({path: path});
+        }
     }
 
-    getPath() {
+    getPath(node,visited,path) {
 
-    }
+        let parentI = node.iP;
+        let parentJ = node.jP;
 
-    getVisited() {
-
-    }
-
-    getSearched() {
+        if(parentI !== undefined && parentJ !== undefined) {
+            this.getPath(visited.getElementAtPosition(parentI,parentJ),visited,path.push(node));
+        }
+        else {
+            return path;
+        }
 
     }
 
@@ -49,20 +67,23 @@ class PathFindingGrid extends Component {
         if(tool === "target") {
             if(this.state.grid[currentI-1][currentJ-1].content !== 1) {
                 let newStart = {i:currentI, j:currentJ, g:0, h:Infinity, metric: Infinity};
-                this.setState({start: newStart});
-                this.setState({newStart: true});
+                return newStart;
             }
         }
 
         if(tool === "erase") {
             this.state.grid[currentI-1][currentJ-1].content = 0;
             this.state.grid[currentI-1][currentJ-1].color = cellColors.NONE;
+            return true;
         }
 
         if(tool === "wall") {
             this.state.grid[currentI-1][currentJ-1].content = 1;
             this.state.grid[currentI-1][currentJ-1].color = cellColors.WALL;
+            return true;
         }
+
+        return false;
 
     }
 
@@ -74,9 +95,9 @@ class PathFindingGrid extends Component {
 
         let mainGrid = [];
 
-        for(let i=1; i<=this.state.size_x; i++) {
+        for(let i=1; i<=this.state.rows; i++) {
             let line = [];
-            for (let j=1; j<=this.state.size_y; j++) {
+            for (let j=1; j<=this.state.columns; j++) {
                 if(i === 5 && j>10 && j<50) {
                     // here generating a simple starting wall
                     let item = {i: i ,j: j, content: 1, color: cellColors.WALL};
@@ -98,7 +119,7 @@ class PathFindingGrid extends Component {
 
     render() {
 
-        const {gridLoaded, grid, testStart, testEnd} = this.state;
+        const {gridLoaded, grid, start, end, path, visited, searched} = this.state;
 
         return (
             gridLoaded ?
@@ -107,9 +128,9 @@ class PathFindingGrid extends Component {
                 data={grid}
                 start={testStart}
                 end={testEnd}
-                path={}
-                visited={}
-                searched={}
+                path={path}
+                visited={visited}
+                searched={searched}
                 >
                 </Grid>
             </div>
