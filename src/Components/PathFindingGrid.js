@@ -1,5 +1,4 @@
 import {Component} from "react";
-import "../styles/PathFindingGrid.css";
 import {Grid} from "./Grid";
 import astar from "../Engines/Astar";
 

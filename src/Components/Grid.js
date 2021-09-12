@@ -1,5 +1,6 @@
 import {Component} from "react";
 import {Gridline} from "./Gridline";
+import "../styles/Grid.css";
 
 /***
  * This class handles coloring and wraps all grid data into Gridlines which wraps its data into Cells
@@ -13,7 +14,10 @@ class Grid extends Component {
         this.state = {
             grid: this.props.data,
             start: this.props.start,
-            end: this.props.end
+            end: this.props.end,
+            path: this.props.path,
+            visited: this.props.visited,
+            searched: this.props.searched
         }
         // TODO -- move to use Cell class instead
     }
@@ -32,6 +36,7 @@ class Grid extends Component {
             }
         }
 
+        this.setState({grid: grid});
     }
 
     colorSearchedArea(searched) {
@@ -61,18 +66,12 @@ class Grid extends Component {
     }
 
     // TODO -- rebuild that to not take so much data in
-    colorThePath(node, visited, grid, pathLength) {
-        if(node.iP !== undefined && node.jP !== undefined) {
-            let currentI = node.i;
-            let currentJ = node.j;
-            this.state.grid[currentI-1][currentJ-1].color = cellColors.PATH;
-            let parentI = node.iP;
-            let parentJ = node.jP;
-            this.colorThePath(visited.getElementAtPosition(parentI,parentJ),visited,pathLength+1);
+    colorThePath(path) {
+
+        for(const step of path) {
+            step.color = cellColors.PATH;
         }
-        else {
-            return pathLength;
-        }
+
     }
 
 
