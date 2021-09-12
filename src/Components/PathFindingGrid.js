@@ -14,9 +14,8 @@ class PathFindingGrid extends Component {
             gridLoaded: false,
             grid: [],
             newStart: false,
-            testStart: {i:15,j:15,g:0,h:Infinity,metric:Infinity},
-            testEnd: {i:21,j:32},
-            updateTrigger: false,
+            start: {i:15,j:15,g:0,h:Infinity,metric:Infinity},
+            end: {i:21,j:32},
             time: 0
         }
 
@@ -33,26 +32,36 @@ class PathFindingGrid extends Component {
         setTool(tool,currentI,currentJ);
     }
 
+    getPath() {
+
+    }
+
+    getVisited() {
+
+    }
+
+    getSearched() {
+
+    }
+
     setTool(tool,currentI,currentJ) {
 
         if(tool === "target") {
             if(this.state.grid[currentI-1][currentJ-1].content !== 1) {
                 let newStart = {i:currentI, j:currentJ, g:0, h:Infinity, metric: Infinity};
-                this.setState({testStart: newStart});
+                this.setState({start: newStart});
                 this.setState({newStart: true});
             }
         }
 
         if(tool === "erase") {
             this.state.grid[currentI-1][currentJ-1].content = 0;
-            this.state.grid[currentI-1][currentJ-1].color = null;
-            this.setState({updateTrigger: true});
+            this.state.grid[currentI-1][currentJ-1].color = cellColors.NONE;
         }
 
         if(tool === "wall") {
             this.state.grid[currentI-1][currentJ-1].content = 1;
-            this.state.grid[currentI-1][currentJ-1].color = "wall";
-            this.setState({updateTrigger: true});
+            this.state.grid[currentI-1][currentJ-1].color = cellColors.WALL;
         }
 
     }
@@ -69,11 +78,12 @@ class PathFindingGrid extends Component {
             let line = [];
             for (let j=1; j<=this.state.size_y; j++) {
                 if(i === 5 && j>10 && j<50) {
-                    let item = {i:i,j:j,content:1,color:"wall"};
+                    // here generating a simple starting wall
+                    let item = {i: i ,j: j, content: 1, color: cellColors.WALL};
                     line.push(item);
                 }
                 else {
-                    let item = {i: i, j: j, content: 0, color: "white"};
+                    let item = {i: i, j: j, content: 0, color: cellColors.NONE};
                     line.push(item);
                 }
             }
@@ -97,6 +107,9 @@ class PathFindingGrid extends Component {
                 data={grid}
                 start={testStart}
                 end={testEnd}
+                path={}
+                visited={}
+                searched={}
                 >
                 </Grid>
             </div>

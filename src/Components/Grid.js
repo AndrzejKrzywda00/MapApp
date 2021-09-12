@@ -11,7 +11,9 @@ class Grid extends Component {
         super(props);
 
         this.state = {
-            grid: this.props.grid,
+            grid: this.props.data,
+            start: this.props.start,
+            end: this.props.end
         }
         // TODO -- move to use Cell class instead
     }
@@ -51,7 +53,7 @@ class Grid extends Component {
         for(const cell of visited.data) {
             let currentI = cell.i;
             let currentJ = cell.j;
-            if(currentI !== this.state.testStart.i || currentJ !== this.state.testStart.j) {
+            if(currentI !== this.state.start.i || currentJ !== this.state.start.j) {
                 this.state.grid[currentI-1][currentJ-1].color = cellColors.VISITED;
             }
         }
