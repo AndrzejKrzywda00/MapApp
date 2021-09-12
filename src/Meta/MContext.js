@@ -3,6 +3,7 @@ import {createContext,Component} from "react";
 export const MContext = createContext("");
 
 class ContextProvider extends Component {
+
     state = {
         message: ""
     }

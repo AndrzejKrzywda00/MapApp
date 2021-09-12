@@ -153,15 +153,16 @@ class PathFindingGrid extends Component {
             let time = t1 - t0;
             let pathLength;
             let pathConcluded = false;
+            let response;
             if (output !== false) {
                 let path = output[0];
                 let leftOut = output[1];
                 this.colorTheSearchedArea(grid, path, grid);
                 this.colorLeftOutArea(leftOut);
                 let pathLength = this.colorTheGrid(path.getClosestElement(), path, grid, 0);
-                let pathConcluded = true;
+                response = {time: time, pathLength: pathLength, pathConcluded: true};
             }
-            let response = {time: time, pathLength: pathLength, pathConcluded: pathConcluded};
+            response = {time: time, pathLength: null, pathConcluded: false};
         }
 
         return (
