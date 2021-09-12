@@ -1,4 +1,4 @@
-const cellColors = {
+export const cellColors = {
     WALL: "wall",
     TARGET: "target",
     NONE: null,
@@ -29,3 +29,5 @@ class Cell {
     }
 
 }
+
+export default Cell;

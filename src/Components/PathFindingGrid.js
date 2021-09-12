@@ -1,6 +1,7 @@
 import {Component} from "react";
-import {Grid} from "./Grid";
+import Grid from "./Grid";
 import astar from "../Engines/Astar";
+import cellColors from "../Meta/Cell";
 
 class PathFindingGrid extends Component {
 
@@ -143,11 +144,12 @@ class PathFindingGrid extends Component {
             <div>
                 <Grid
                 data={grid}
-                start={testStart}
-                end={testEnd}
+                start={start}
+                end={end}
                 path={path}
                 visited={visited}
                 searched={searched}
+                handleClick={this.handleClick}
                 >
                 </Grid>
             </div>

@@ -1,6 +1,7 @@
 import {Component} from "react";
 import {Gridline} from "./Gridline";
 import "../styles/Grid.css";
+import cellColors from "../Meta/Cell";
 
 /***
  * This class handles coloring and wraps all grid data into Gridlines which wraps its data into Cells

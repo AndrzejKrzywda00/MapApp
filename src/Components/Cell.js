@@ -1,4 +1,5 @@
 import "../styles/Cell.css";
+import cellColors from "../Meta/Cell";
 
 export const Cell =({data, handleClick, start, end})=> {
 
