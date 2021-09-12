@@ -65,7 +65,6 @@ class Grid extends Component {
 
     }
 
-    // TODO -- rebuild that to not take so much data in
     colorThePath(path) {
 
         for(const step of path) {

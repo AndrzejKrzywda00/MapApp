@@ -16,13 +16,15 @@ class PathFindingGrid extends Component {
             end: {i:21,j:32},
             path: [],
             visited: [],
-            searched: []
+            searched: [],
+            dataLoaded: false
         }
 
         this.handleClick = this.handleClick.bind(this);
         this.setTool = this.setTool.bind(this);
         this.generateStartingGrid = this.generateStartingGrid.bind(this);
-        // TODO -- add dragging and painting, clean the code!!!
+        this.solveTheProblem = this.solveTheProblem.bind(this);
+        // TODO -- add dragging and painting
     }
 
     handleClick(position) {
@@ -34,16 +36,7 @@ class PathFindingGrid extends Component {
         let toolChosen = this.setTool(tool,currentI,currentJ);
 
         if(toolChosen === true) {
-
-            let t0 = performance.now();
-            let [visited, searched] = astar(this.state.grid,this.state.start,this.state.end);
-            let t1 = performance.now();
-
-            let path = this.getPath(visited.getClosestElement(),visited,[]);
-
-            this.setState({visited: visited});
-            this.setState({searched: searched});
-            this.setState({path: path});
+            this.solveTheProblem();
         }
     }
 
@@ -88,6 +81,31 @@ class PathFindingGrid extends Component {
 
     async componentDidMount() {
         this.generateStartingGrid();
+
+        if(this.state.gridLoaded) {
+            this.solveTheProblem();
+        }
+
+    }
+
+    solveTheProblem() {
+
+        let t0 = performance.now();
+        let result = astar(this.state.grid, this.state.start, this.state.end);
+        let t1 = performance.now();
+
+        if(result !== false) {
+
+            let visited = result[0];
+            let searched = result[1];
+            let path = this.getPath(visited.getClosestElement(),visited,[]);
+
+            this.setState({visited: visited});
+            this.setState({searched: searched});
+            this.setState({path: path});
+            this.setState({dataLoaded: true});
+        }
+
     }
 
     generateStartingGrid() {
