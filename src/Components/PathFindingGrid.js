@@ -25,7 +25,6 @@ class PathFindingGrid extends Component {
         this.setTool = this.setTool.bind(this);
         this.generateStartingGrid = this.generateStartingGrid.bind(this);
         this.solveTheProblem = this.solveTheProblem.bind(this);
-        // TODO -- add dragging and painting
     }
 
     handleClick(position) {
@@ -47,7 +46,8 @@ class PathFindingGrid extends Component {
         let parentJ = node.jP;
 
         if(parentI !== undefined && parentJ !== undefined) {
-            this.getPath(visited.getElementAtPosition(parentI,parentJ),visited,path.push(node));
+            path.push(node);
+            this.getPath(visited.getElementAtPosition(parentI,parentJ),visited,path);
         }
         else {
             return path;
@@ -81,10 +81,11 @@ class PathFindingGrid extends Component {
     }
 
     async componentDidMount() {
-        this.generateStartingGrid();
+
+        await this.generateStartingGrid();
 
         if(this.state.gridLoaded) {
-            this.solveTheProblem();
+            await this.solveTheProblem();
         }
 
     }
@@ -132,15 +133,14 @@ class PathFindingGrid extends Component {
 
         this.setState({grid: mainGrid});
         this.setState({gridLoaded: true});
-
     }
 
     render() {
 
-        const {gridLoaded, grid, start, end, path, visited, searched} = this.state;
+        const {dataLoaded, grid, start, end, path, visited, searched} = this.state;
 
         return (
-            gridLoaded ?
+            dataLoaded ?
             <div>
                 <Grid
                 data={grid}

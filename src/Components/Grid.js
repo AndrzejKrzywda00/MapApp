@@ -79,6 +79,9 @@ class Grid extends Component {
 
         const {data, start, end, handleClick} = this.props;
 
+        this.unColorTheGrid(data);
+
+
         return(
           <div className={"map"}>
               {data.map(line => (
